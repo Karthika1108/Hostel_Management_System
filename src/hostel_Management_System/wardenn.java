@@ -11,17 +11,25 @@ public class wardenn {
  String c_phNo;
  float w_salary;
  String email;
- String password;
  public void addWarden(String w_Name,String w_Address,String w_gender,int w_age,String joining,String w_phNo,float w_salary,String email) throws SQLException{
 	 Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","Thara@123^123");
-		String query="INSERT INTO WARDEN VALUES(?,?,?,?,?,?,?,?,?,?);";
+		String query="INSERT INTO WARDEN VALUES(?,?,?,?,?,?,?,?,?);";
 		String q="Select count(W_NO)+1 from WARDEN";
+		String role="warden";
+		String q1="INSERT INTO LOGIN VALUES(?,?,?,?);";
+		
 		Statement sts=con.createStatement();
 		int count=0;
 		ResultSet rl=sts.executeQuery(q);
 		while(rl.next()) 
 		 count=rl.getInt(1);
 		PreparedStatement psd=con.prepareStatement(query);
+		PreparedStatement p=con.prepareStatement(q1);
+		p.setInt(1,count);
+		p.setString(2, email);
+		p.setString(3, "");
+		p.setString(4, role);
+		int r2=p.executeUpdate();
 		psd.setInt(1,count);
 		psd.setString(2,w_Name);
 		psd.setString(3,w_Address);
@@ -31,7 +39,6 @@ public class wardenn {
 		psd.setString(7,w_phNo);
 		psd.setFloat(8,w_salary);
 		psd.setString(9,email);
-		psd.setString(10,"");
 		int r=psd.executeUpdate();
 		if(r==1) {
 			System.out.println("Sucessfully added Warden");

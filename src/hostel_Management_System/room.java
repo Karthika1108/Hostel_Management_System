@@ -13,6 +13,7 @@ class room{
 	int floor;
 	String status;
 	public void addRoom(int r_no,String type,float rent,int floor,String status) throws SQLException {
+		try {
 		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/hostel","root","Thara@123^123");
 		String query="INSERT INTO ROOM VALUES(?,?,?,?,?);";
 		PreparedStatement psd=con.prepareStatement(query);
@@ -24,6 +25,10 @@ class room{
 		int rl=psd.executeUpdate();
 		if(rl>0) {
 			System.out.println("Sucessfully added Room");
+		}
+		}
+		catch(SQLException ex) {
+			System.out.println("room already finded");
 		}
 	}
 	public void updateType() throws SQLException {

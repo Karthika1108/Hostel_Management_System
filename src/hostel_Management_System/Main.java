@@ -15,7 +15,7 @@ public class Main {
 		else if(option==2) {
 			login log=new login();
 			log.checkLogin(log.getMail(),log.getPass());
-			if(log.getFlag()) {
+			if(log.getFlag() && log.getRole().equals("ADMIN")) {
 			while(option!=5) {
 			System.out.println("1-->DISPLAY\n2-->ADD\n3-->UPDATE\n4-->REMOVE\n5-->EXIT");
 			option=cs.nextInt();
@@ -30,7 +30,7 @@ public class Main {
 				if(option==1) {
 					System.out.println("ENTER ROOM NO: ");
 					int r_no=cs.nextInt();
-					System.out.println("ENTER ROOM TYPE(SINGLE/DOUBLE/QUATRIPLE:");
+					System.out.println("ENTER ROOM TYPE(AC/Non AC:");
 				    String type=cs.next();
 					System.out.println("ENTER ROOM RENT: ");
 					float rent=cs.nextFloat();
@@ -124,8 +124,8 @@ public class Main {
 						
 					}
 					else if(option==2) {
-						while(option!=4) {
-							System.out.println("1-->UPDATE CUSTOMER PHONE NUMBER\n2-->UPDATE CUSTOMER ROOM \n3-->UPDATE ROOM RENT\n4-->EXIT");
+						while(option!=5) {
+							System.out.println("1-->UPDATE CUSTOMER PHONE NUMBER\n2-->UPDATE CUSTOMER ROOM \n3-->UPDATE ROOM RENT\n--4>UPDATE CUSTOMER STATUS\n5-->EXIT");
 							option=cs.nextInt();
 							if(option==1){
 								Customers c=new Customers();
@@ -139,7 +139,11 @@ public class Main {
 								Customers c=new Customers();
 								c.updateCustomerRent();
 							}
-							else if(option>4){
+							else if(option==4) {
+								Customers c=new Customers();
+								c.updateCustomerStatus();
+                            }
+							else if(option>5){
 								System.out.print("ENTER VALID OPTION");
 							}
 							else {
@@ -163,7 +167,7 @@ public class Main {
 							}
 							
 							else if(option>3){
-								System.out.print("ENTER VALID OPTION");
+								System.out.println("ENTER VALID OPTION");
 							}
 							else {
 								break;
@@ -218,6 +222,9 @@ public class Main {
 		  }
 			
 		}
+			else if(log.getFlag() && log.getRole().equals("WARDEN")) {
+				
+			}
 		   else {
 			   System.out.println("ENTER VALID OPTION");
 		   }
